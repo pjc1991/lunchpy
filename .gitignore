@@ -21,3 +21,9 @@ var/
 
 # config.py
 config.py
+
+# node_modules
+node_modules/
+
+# python_cache
+__pycache__/

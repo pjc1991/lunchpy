@@ -12,6 +12,9 @@ Use those resources.
 - [AWS API Gateway](https://aws.amazon.com/api-gateway/)
 - [AWS DynamoDB](https://aws.amazon.com/dynamodb/)
 
+## Setup
+
+Under construction.
 
 ## Usage
 
