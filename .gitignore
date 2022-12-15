@@ -27,3 +27,6 @@ node_modules/
 
 # python_cache
 __pycache__/
+
+# pyenv-windows
+install-pyenv-win.ps1
