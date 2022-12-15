@@ -16,7 +16,7 @@ def lambda_handler(event, context):
 
     # Use the Google Maps API to find stores near the user's workspace
     # language should be set to Korean
-    url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={location}&radius=5000&type=restaurant&language=ko&key={API_KEY}"
+    url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={location}&radius=50000&type=restaurant&language=ko&key={API_KEY}"
     response = requests.get(url)
 
     #if response.status_code is not 200 then raise an exception
@@ -24,6 +24,14 @@ def lambda_handler(event, context):
     # print(json)
 
     stores = response.json()["results"]
+
+    # use page token to get more results
+    while "next_page_token" in response.json():
+        next_page_token = response.json()["next_page_token"]
+        url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken={next_page_token}&radius=50000&type=restaurant&language=ko&key={API_KEY}"
+        response = requests.get(url)
+        stores += response.json()["results"]
+    
     
 
 
@@ -49,14 +57,19 @@ def lambda_handler(event, context):
     # sort the stores by their rating in descending order if key in store exists
     stores = sorted(stores, key=lambda store: store["rating"], reverse=True)
 
-    # get the top 10 stores
-    stores = stores[:50]
-
     # the list of words which shouldn't be in the store name
-    bad_words = ["치킨", "피자", "통닭", "강정", "바베큐"]
+    bad_words = ["치킨", "피자", "통닭", "강정", "바베큐", "또래오래", "멕시카나", "파파존스"]
 
     # filter out stores that have bad words in their name
     stores = [store for store in stores if not any(bad_word in store["name"] for bad_word in bad_words)]
+
+    # show all of them
+    for store in stores:
+        print(store["name"])
+        print(store["rating"])
+        print(store["vicinity"])
+        print("")
+
 
     # randomly select three stores from the top 10
     stores = random.sample(stores, 3)
@@ -81,11 +94,11 @@ if __name__ == "__main__":
     event = {
         "location": "37.5002,127.1006"
     }
-    #print("Recommendation:  ")
-    #print(lambda_handler(event, None))
+    print("Recommendation:  ")
+    print(lambda_handler(event, None))
 
     # Test the function 100 times
-    for i in range(10):
-        print("Recommendation:  ")
-        print(lambda_handler(event, None))
+    # for i in range(10):
+    #     print("Recommendation:  ")
+    #     print(lambda_handler(event, None))
 
