@@ -1,17 +1,7 @@
-import json
 import random
 import requests
-import sys
 
-import config
-
-# Replace with your Google Maps API key
-API_KEY = config.google_map_key
-
-
-def lambda_handler(event, context):
-    # Extract the user's workspace location from the event data
-    location = event["location"]
+def recommend(location, API_KEY):
 
     # Use the Google Maps API to find stores near the user's workspace
     # language should be set to Korean
@@ -79,9 +69,6 @@ def lambda_handler(event, context):
         message += f"{store['name']}({store['rating']}), "
     message = message[:-2] + " 어때요?"
 
-    # console message
-    # print(f"message: {message}")
-
     # Return the recommendation message as the result of the Lambda function
     return {
         "message": message
@@ -91,13 +78,7 @@ def lambda_handler(event, context):
 if __name__ == "__main__":
     # Test the function locally
     event = {
-        "location": "37.5002,127.1006"
+        "location": "37.5002,127.1006" # yes we are here so what
     }
     print("Recommendation:  ")
-    print(lambda_handler(event, None))
-
-    # Test the function 100 times
-    # for i in range(10):
-    #     print("Recommendation:  ")
-    #     print(lambda_handler(event, None))
-
+    print(recommend(event, None))
