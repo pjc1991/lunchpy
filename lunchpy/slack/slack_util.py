@@ -3,8 +3,9 @@ from slack_sdk import WebClient
 # post slack message to certain channel
 # get channel id from config.py
 # get slack token from config.py
-def post_slack_message(text, channel_id, slack_token):
 
+
+def post_slack_message(text, channel_id, slack_token):
 
     # if(config.slack_token == "" or config.channel_id == ""):
     #     # if slack token or channel id is not set, throw error

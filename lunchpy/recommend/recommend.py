@@ -8,7 +8,6 @@ def recommend(matzips):
     # if store is None or len(store) == 0 then raise an exception
     if matzips is None or len(matzips) == 0:
         raise Exception("No stores found")
-    
 
     # show all of them
     # for matzip in matzips:
@@ -26,7 +25,7 @@ def recommend(matzips):
     # if size < 5: just use all of them
     if size > 5:
         matzips = matzips[:int(size * 0.2)]
-    
+
     # randomly select 3 stores
     matzips = random.sample(matzips, 3)
 
@@ -40,7 +39,7 @@ def recommend(matzips):
         if matzip.rating > 0:
             message += f" ({matzip.rating}점)"
         message += ", "
-        
+
     message = message[:-2] + " 어때요?"
     message += f" (총 {size}개 중)"
 
