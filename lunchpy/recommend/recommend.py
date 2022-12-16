@@ -1,84 +1,45 @@
 import random
 import requests
 
-def recommend(location, API_KEY):
+# Replace with your Google Maps API key
 
-    # Use the Google Maps API to find stores near the user's workspace
-    # language should be set to Korean
-    url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={location}&radius=50000&type=restaurant&language=ko&key={API_KEY}"
-    response = requests.get(url)
 
-    #if response.status_code is not 200 then raise an exception
-    json = response.json()
-    # print(json)
-
-    stores = response.json()["results"]
-
-    # use page token to get more results
-    while "next_page_token" in response.json():
-        next_page_token = response.json()["next_page_token"]
-        url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken={next_page_token}&radius=1000&type=restaurant&language=ko&key={API_KEY}"
-        response = requests.get(url)
-        stores += response.json()["results"]
+def recommend(matzips):
+    # if store is None or len(store) == 0 then raise an exception
+    if matzips is None or len(matzips) == 0:
+        raise Exception("No stores found")
     
-    
-
-
-    # if there are no stores near the user's workspace, return an error message
-    if not stores:
-        return {
-            "message": "No stores found near your workspace."
-        }
-        
-    # filter out stores that don't have a rating
-    stores = [store for store in stores if "rating" in store]
-
-    # how many stores are there?
-    print(f"Found {len(stores)} stores near your workspace.")
-
-    #print all stores one by one
-    # for store in stores:
-    #     print(store["name"])
-    #     print(store["rating"])
-    #     print(store["vicinity"])
-    #     print("")
-
-    # sort the stores by their rating in descending order if key in store exists
-    stores = sorted(stores, key=lambda store: store["rating"], reverse=True)
-
-    # the list of words which shouldn't be in the store name
-    bad_words = ["치킨", "피자", "통닭", "강정", "바베큐", "또래오래", "멕시카나", "파파존스"]
-
-    # filter out stores that have bad words in their name
-    stores = [store for store in stores if not any(bad_word in store["name"] for bad_word in bad_words)]
 
     # show all of them
-    for store in stores:
-        print(store["name"])
-        print(store["rating"])
-        print(store["vicinity"])
-        print("")
+    # for matzip in matzips:
+    #     print(matzip.name)
+    #     print(matzip.rating)
+    #     print(matzip.address)
+    #     print("")
 
+    # sort stores by rating
+    matzips = sorted(matzips, key=lambda matzip: matzip.rating, reverse=True)
 
-    # randomly select three stores from the top 10
-    stores = random.sample(stores, 3)
+    size = len(matzips)
+
+    # randomly select 3 stores
+    matzips = random.sample(matzips, 3)
+
+    # sort stores by rating
+    matzips = sorted(matzips, key=lambda matzip: matzip.rating, reverse=True)
 
     # make a recommendation message with the selected stores
     message = "오늘 점심은  "
-    for store in stores:
-        message += f"{store['name']}({store['rating']}), "
+    for matzip in matzips:
+        message += f"{matzip.name}"
+        if matzip.rating > 0:
+            message += f" ({matzip.rating}점)"
+        message += ", "
+        
     message = message[:-2] + " 어때요?"
+    message += f" (총 {size}개 중)"
 
     # Return the recommendation message as the result of the Lambda function
     return {
         "message": message
     }
-
-
-if __name__ == "__main__":
-    # Test the function locally
-    event = {
-        "location": "37.5002,127.1006" # yes we are here so what
-    }
-    print("Recommendation:  ")
-    print(recommend(event, None))

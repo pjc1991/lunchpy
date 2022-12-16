@@ -1,8 +1,14 @@
 import lunchpy.slack.slack_util as slack_util
 import lunchpy.recommend.recommend as recommend
 import lunchpy.config as config
+import lunchpy.stores.store_collector as store_collector
 
 
 if __name__ =='__main__':
-    recommend_msg = recommend.recommend(config.location, config.google_map_key)
-    slack_util.post_slack_message(recommend_msg['message'], config.channel_id, config.slack_token)
+    matzips = store_collector.get_matzips_from_naver()
+    # print the number of stores
+    print(f"the number of stores {len(matzips)}")
+    # print all 
+    for matzip in matzips:
+        # name rating address
+        print(matzip.name, matzip.rating, matzip.address)
