@@ -3,7 +3,6 @@ import random
 import requests
 import sys
 
-sys.path.append('../lunchpy')
 import config
 
 # Replace with your Google Maps API key
@@ -28,7 +27,7 @@ def lambda_handler(event, context):
     # use page token to get more results
     while "next_page_token" in response.json():
         next_page_token = response.json()["next_page_token"]
-        url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken={next_page_token}&radius=50000&type=restaurant&language=ko&key={API_KEY}"
+        url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?pagetoken={next_page_token}&radius=1000&type=restaurant&language=ko&key={API_KEY}"
         response = requests.get(url)
         stores += response.json()["results"]
     
