@@ -40,6 +40,7 @@ def get_matzips_from_google():
     # use page token to get more results
     while "next_page_token" in response.json() and len(stores) < 500:
         next_page_token = response.json()["next_page_token"]
+        url = "https://maps.googleapis.com/maps/api/place/textsearch/json?pagetoken={}&key={}".format(next_page_token, google_map_key)
         response = requests.get(url)
         stores += response.json()["results"]
         
@@ -105,7 +106,7 @@ def get_matzips():
     print(f"naver_matzips: {len(naver_matzips)}")
     # combine all matzips
     matzips = google_matzips + naver_matzips
-    # remove duplicates
+    # remove duplicates 
     matzips = list(set(matzips))
     return matzips
 

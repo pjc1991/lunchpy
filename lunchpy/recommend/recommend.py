@@ -22,6 +22,11 @@ def recommend(matzips):
 
     size = len(matzips)
 
+    # only use the top 20% of stores
+    # if size < 5: just use all of them
+    if size > 5:
+        matzips = matzips[:int(size * 0.2)]
+    
     # randomly select 3 stores
     matzips = random.sample(matzips, 3)
 
