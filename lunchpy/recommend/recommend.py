@@ -1,8 +1,4 @@
 import random
-import requests
-
-# Replace with your Google Maps API key
-
 
 def recommend(matzips):
     # if store is None or len(store) == 0 then raise an exception
