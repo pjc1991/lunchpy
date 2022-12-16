@@ -1,6 +1,6 @@
 import lunchpy.slack.slack_util as slack_util
 import lunchpy.recommend.recommend as recommend
-import lunchpy.config.config as config
+import lunchpy.config as config
 
 
 if __name__ =='__main__':
