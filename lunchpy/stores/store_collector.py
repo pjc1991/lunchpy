@@ -38,7 +38,7 @@ def get_matzips_from_google():
     stores = response.json()["results"]
 
     # use page token to get more results
-    while "next_page_token" in response.json() and len(stores) < 100:
+    while "next_page_token" in response.json() and len(stores) < 500:
         next_page_token = response.json()["next_page_token"]
         response = requests.get(url)
         stores += response.json()["results"]
