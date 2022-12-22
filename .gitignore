@@ -30,3 +30,6 @@ __pycache__/
 
 # pyenv-windows
 install-pyenv-win.ps1
+
+# mac
+.DS_Store
