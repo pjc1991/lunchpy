@@ -28,18 +28,5 @@ def recommend(matzips):
     # sort stores by rating
     matzips = sorted(matzips, key=lambda matzip: matzip.rating, reverse=True)
 
-    # make a recommendation message with the selected stores
-    message = "오늘 점심은  "
-    for matzip in matzips:
-        message += f"{matzip.name}"
-        if matzip.rating > 0:
-            message += f" ({matzip.rating}점)"
-        message += ", "
-
-    message = message[:-2] + " 어때요?"
-    message += f" (총 {size}개 중)"
-
-    # Return the recommendation message as the result of the Lambda function
-    return {
-        "message": message
-    }
+   # return the top 3 stores
+    return matzips
