@@ -72,7 +72,7 @@ def get_matzips_from_google():
         name = store["name"].strip()
         rating = store["rating"]
         address = store["formatted_address"]
-        matzips.append(Matzip(name, rating, address))
+        matzips.append(Matzip(name, rating, address, 0))
 
     return matzips
 
@@ -115,7 +115,7 @@ def get_matzips_from_naver():
         name = store["title"].strip()
         rating = 0
         address = store["address"]
-        matzips.append(Matzip(name, rating, address))
+        matzips.append(Matzip(name, rating, address, 0))
 
     return matzips
 
@@ -181,7 +181,7 @@ def get_matzips_from_google_places():
             name = store["name"].strip()
             rating = store["rating"]
             address = store["vicinity"]
-            matzips.append(Matzip(name, rating, address))
+            matzips.append(Matzip(name, rating, address, 0))
     
         return matzips
 

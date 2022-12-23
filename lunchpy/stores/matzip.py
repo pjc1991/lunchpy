@@ -1,12 +1,14 @@
 # define interface for store
-# contains name, rating, address
+# contains name, rating, address, recommend_count
 
 # if a store's name is the same, then it is the same store
 class Matzip:
-    def __init__(self, name, rating, address):
+
+    def __init__(self, name, rating, address, recommend_count):
         self.name = name
         self.rating = rating
         self.address = address
+        self.recommend_count = recommend_count
 
     def __str__(self):
         return f"{self.name}({self.rating})"
@@ -18,7 +20,8 @@ class Matzip:
         return {
             "name": self.name,
             "rating": self.rating,
-            "address": self.address
+            "address": self.address,
+            "recommend_count": self.recommend_count
         }
 
     def __eq__(self, other):
