@@ -42,4 +42,4 @@ def recommend_msg(matzips):
     }
 
 if __name__ == "__main__":
-    test.test()
+    hello(None, None);

@@ -14,6 +14,11 @@ Use those resources.
 
 ## Setup
 
+```bash
+export AWS_PROFILE=your_aws_profile
+python manage.py
+```
+
 Under construction.
 
 ## Usage
