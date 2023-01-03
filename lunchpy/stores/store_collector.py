@@ -16,7 +16,7 @@ def get_matzips_from_google():
         "query": f"{location_name} 맛집",
         "language": "ko",
         "location": location,
-        "radius": 5000,
+        "radius": 1000,
         "type": "restaurant",
         "key": google_map_key
     }
@@ -125,7 +125,7 @@ def get_matzips_from_google_places():
         # create query dict
         querydict = {
             "location": location,
-            "radius": 5000,
+            "radius": 1000,
             "type": "restaurant",
             "key": google_map_key
         }
